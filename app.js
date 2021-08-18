@@ -45,6 +45,9 @@ fridayComs.push("open my github profile");
 
 // weather setup
 
+// this is what friday tells about weather
+let weatherStatement = "";
+
 function weather(location) {
   const weatherCont = document.querySelector(".temp").querySelectorAll("*");
 
@@ -65,8 +68,9 @@ function weather(location) {
       weatherCont[6].textContent = `feels like ${ktc(data.main.feels_like)}`;
       weatherCont[7].textContent = `Min temperature ${ktc(data.main.temp_min)}`;
       weatherCont[8].textContent = `Max temperature ${ktc(data.main.temp_max)}`;
-      weatherStatement = `sir the weather in ${data.name} is ${data.weather[0].description
-        } and the temperature feels like ${ktc(data.main.feels_like)}`;
+      weatherStatement = `sir the weather in ${data.name} is ${
+        data.weather[0].description
+      } and the temperature feels like ${ktc(data.main.feels_like)}`;
     } else {
       weatherCont[0].textContent = "Weather Info Not Found";
     }
@@ -272,11 +276,13 @@ recognition.onresult = function (event) {
   }
   if (transcript.includes("full weather report")) {
     readOut("opening the weather report sir");
-    window.open(
+    
+    let a = window.open(
       `https://www.google.com/search?q=weather+in+${
         JSON.parse(localStorage.getItem("jarvis_setup")).location
       }`
     );
+    windowsB.push(a)
   }
   if (transcript.includes("what are your commands")) {
     readOut("sir, I follow the following commands");
@@ -313,7 +319,8 @@ recognition.onresult = function (event) {
     input.pop();
     input = input.join("").split(" ").join("+");
     console.log(input);
-    window.open(`https://www.google.com/search?q=${input}`);
+    let a = window.open(`https://www.google.com/search?q=${input}`);
+    windowsB.push(a)
   }
 
   // if (
@@ -321,7 +328,8 @@ recognition.onresult = function (event) {
   //   transcript.includes("open fire base")
   // ) {
   //   readOut("opening firebase console");
-  //   window.open("https://console.firebase.google.com/");
+  //   let a = window.open("https://console.firebase.google.com/");
+//   windowsB.push(a)
   // }
   // firebase with accounts feature
   if (transcript.includes("open fire base") && transcript.includes("account")) {
@@ -332,26 +340,31 @@ recognition.onresult = function (event) {
     accId = accId[accId.length - 1];
     console.log(`accId: ${accId}`);
     // https://console.firebase.google.com/u/0/
-    window.open(`https://console.firebase.google.com/u/${accId}/`);
+    let a = window.open(`https://console.firebase.google.com/u/${accId}/`);
+    windowsB.push(a)
   }
 
   // github commands
   if (transcript.includes("open github")) {
     readOut("opening github sir")
-    window.open("https://github.com/")
+    let a = window.open("https://github.com/")
+    windowsB.push(a)
   }
   if (transcript.includes("open my github profile")) {
     readOut("opening your github profile sir")
-    window.open(`https://github.com/${JSON.parse(userdata).github}`)
+    let a = window.open(`https://github.com/${JSON.parse(userdata).github}`)
+    windowsB.push(a)
   }
     if (transcript.includes("open whatsapp")) {
     readOut("opening whatsapp");
-    window.open("https://web.whatsapp.com/");
+    let a = window.open("https://web.whatsapp.com/");
+      windowsB.push(a)
   }
 
   if (transcript.includes("open netlify")) {
     readOut("opening netlify");
-    window.open("https://app.netlify.com/");
+    let a = window.open("https://app.netlify.com/");
+    windowsB.push(a)
   }
   if (transcript.includes("play")) {
     let playStr = transcript.split("");
@@ -359,35 +372,41 @@ recognition.onresult = function (event) {
     let videoName = playStr.join("");
     playStr = playStr.join("").split(" ").join("+");
     readOut(`playing ${videoName}`);
-    window.open(`https://www.youtube.com/search?q=${playStr}`);
+    let a = window.open(`https://www.youtube.com/search?q=${playStr}`);
+    windowsB.push(a)
   }
   
   if (transcript.includes("open my twitter profile")) {
     readOut("opening your twitter profile");
-    window.open(`https://twitter.com/${JSON.parse(userData).twitter}`);
+    let a = window.open(`https://twitter.com/${JSON.parse(userData).twitter}`);
+    windowsB.push(a)
   }
   if (transcript.includes("open twitter")) {
     readOut("opening twitter sir");
-    window.open(`https://twitter.com/`);
+    let a = window.open(`https://twitter.com/`);
+    windowsB.push(a)
   }
   
   if (transcript.includes("open instagram")) {
     readOut("opening instagram sir");
-    window.open("https://www.instagram.com");
+    let a = window.open("https://www.instagram.com");
+    windowsB.push(a)
   }
   if (transcript.includes("open my instagram profile")) {
     if (JSON.parse(userData).instagram) {
       readOut("opening your instagram profile");
-      window.open(
+      let a = window.open(
         `https://www.instagram.com/${JSON.parse(userData).instagram}/`
       );
+      windowsB.push(a)
     } else {
       readOut("sir i didn't found your instagram information");
     
 
   if (transcript.includes("open spotify")) {
     readOut("opening spotify");
-    window.open("https://open.spotify.com/");
+    let a = window.open("https://open.spotify.com/");
+    windowsB.push(a)
   }
   if (transcript.includes("what's my name")) {
     readOut(`Sir, I know that you are ${JSON.parse(userData).name}`);
