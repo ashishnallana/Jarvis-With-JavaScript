@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="stylesheet" href="./style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>F R I D A Y</title>
+</head>
+
+<body>
+
+  <audio src="./power up.mp3" id="turn_on"></audio>
+
+  <div class="machine"> 
+
+    <div class="clock cont">
+      <img src="https://iamfriday.netlify.app/clock1.png" class="icon">
+      <p id="time"></p>
+    </div>
+
+    <div class="internet cont">
+      <img src="https://iamfriday.netlify.app/internet1.png" class="icon">
+      <p id="internet"></p>
+    </div>
+
+    <div class="battery cont">
+      <img src="https://iamfriday.netlify.app/battery1.png" class="icon">
+      <p id="battery"></p>
+    </div>
+
+    <div class="temp">
+      <p id="location"></p>
+      <p id="country"></p>
+      <p id="weatherT"></p>
+      <p id="weatherD"></p>
+      <img src="" id="weatherIcon" />
+      <p id="oTemp"></p>
+      <p id="feelLikeTemp"></p>
+      <p id="minT"></p>
+      <p id="maxT"></p>
+    </div>
+
+    <img src="https://iamfriday.netlify.app/iron_man.gif"  id="iron_man">
+    <img src="https://iamfriday.netlify.app/heart.gif" id="heart"> 
+  </div>
+
+  <div id="start_jarvis_btn" title="start FRIDAY">
+    <img src="https://i.gifer.com/origin/43/434771e3bf841e79abb2d4da70d6b1e2.gif" alt="start jarvis">
+  </div>
+
+  <div class="jarvis_setup in_middle">
+    <label for="">Your Name</label>
+    <input type="text">
+    <br>
+    <label for="">Your Bio</label>
+    <input type="text">
+    <br>
+    <label for="">Your Location</label>
+    <input type="text">
+    <br>
+    <label for="">Instagram Profile</label>
+    <input type="text">
+    <br>
+    <label for="">Twitter Profile</label>
+    <input type="text">
+    <br>
+    <label for="">Github Profile</label>
+    <input type="text">
+    <br>
+    <button id="sub_btn">Submit</button>
+  </div>
+
+  <div class="messages"></div>
+  <div class="commands in_middle"></div>
+
+  <button id="start" style="display: none;">vr start</button>
+  <button id="stop" style="display: none;"></button>>vr stop</button>
+  <button id="speak" style="display: none;"></button>>speak out</button>
+
+  <!-- script -->
+  <script src="./app.js"></script>
+  <noscript>you need Javascript for this webapp</noscript>
+</body>
+
+</html>
