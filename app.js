@@ -55,6 +55,8 @@ let secs = date.getSeconds();
 
 // this is what friday tells about weather
 let weatherStatement = "";
+let charge,chargeStatus, connectivity, currentTime
+chargeStatus = "unplugged"
 
 window.onload = () => {
   turn_on.play();
@@ -78,14 +80,23 @@ window.onload = () => {
   batteryPromise.then(batteryCallback);
 
   // internet connectivity
-  navigator.onLine
-    ? (document.querySelector("#internet").textContent = "online")
-    : (document.querySelector("#internet").textContent = "offline");
+
+    if(navigator.onLine){
+      document.querySelector("#internet").textContent = "online"
+      connectivity = "online"
+    } else {
+      document.querySelector("#internet").textContent = "offline"
+      connectivity = "offline"
+    }
 
   setInterval(() => {
-    navigator.onLine
-      ? (document.querySelector("#internet").textContent = "online")
-      : (document.querySelector("#internet").textContent = "offline");
+    if(navigator.onLine){
+      document.querySelector("#internet").textContent = "online"
+      connectivity = "online"
+    } else {
+      document.querySelector("#internet").textContent = "offline"
+      connectivity = "offline"
+    }
   }, 60000);
 
   function batteryCallback(batteryObject) {
@@ -96,25 +107,44 @@ window.onload = () => {
   }
   function printBatteryStatus(batteryObject) {
     document.querySelector("#battery").textContent = `${
-      batteryObject.level * 100
+      (batteryObject.level * 100).toFixed(2)
     }%`;
+    charge = batteryObject.level * 100
     if (batteryObject.charging === true) {
       document.querySelector(".battery").style.width = "200px";
       document.querySelector("#battery").textContent = `${
         (batteryObject.level * 100).toFixed(2)
       }% Charging`;
+      chargeStatus = "plugged in"
     }
   }
 
   // timer
-  setInterval(() => {
-    let date = new Date();
-    let hrs = date.getHours();
-    let mins = date.getMinutes();
-    let secs = date.getSeconds();
-    time.textContent = `${hrs} : ${mins} : ${secs}`;
-  }, 1000);
+  // setInterval(() => {
+  //   let date = new Date();
+  //   let hrs = date.getHours();
+  //   let mins = date.getMinutes();
+  //   let secs = date.getSeconds();
+  //   time.textContent = `${hrs} : ${mins} : ${secs}`;
+  // }, 1000);
 };
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  currentTime = strTime
+  time.textContent = strTime
+}
+
+formatAMPM(date)
+setInterval(() => {
+  formatAMPM(date)
+}, 60000);
 
 // auto friday
 
@@ -232,6 +262,19 @@ recognition.onresult = function (event) {
   // hi - hello
   if (transcript.includes("hi jarvis")) {
     readOut("hello sir");
+  }
+  // some casual commands
+  if (transcript.includes("what's the current charge")) {
+    readOut(`the current charge is ${charge}`);
+  }
+  if (transcript.includes("what's the charging status")) {
+    readOut(`the current charging status is ${chargeStatus}`);
+  }
+  if (transcript.includes("current time")) {
+    readOut(currentTime);
+  }
+  if (transcript.includes("connection status")) {
+    readOut(`you are ${connectivity} sir`);
   }
   // jarvis commands
   if (transcript.includes("what are your commands")) {
@@ -376,19 +419,19 @@ recognition.onresult = function (event) {
     windowsB.push(a)
   }
 
-  // if (transcript.includes("play")) {
-  //   let playStr = transcript.split("");
-  //   playStr.splice(0, 5);
-  //   console.log(playStr);
-  //   let videoName = playStr.join("");
-  //   console.log(videoName);
-  //   playStr = playStr.join("").split(" ").join("+");
-  //   console.log(playStr);
-  //   readOut(`playing ${videoName}`);
-  //   et a = window.open(`https://www.youtube.com/search?q=${playStr}`
-  //   );
-  //   windowsB.push(a)
-  // }
+  if (transcript.includes("play")) {
+    let playStr = transcript.split("");
+    playStr.splice(0, 5);
+    console.log(playStr);
+    let videoName = playStr.join("");
+    console.log(videoName);
+    playStr = playStr.join("").split(" ").join("+");
+    console.log(playStr);
+    readOut(`searching youtube for ${videoName}`);
+    let a = window.open(`https://www.youtube.com/search?q=${playStr}`
+    );
+    windowsB.push(a)
+  }
 
   /*
   * When window.open is called from a handler that was triggered though a user action (e.g. onclick event), it will behave similar as <a target="_blank">, which by default opens in a new tab. However if window.open is called elsewhere, Chrome ignores other arguments and always opens a new window with a non-editable address bar.
