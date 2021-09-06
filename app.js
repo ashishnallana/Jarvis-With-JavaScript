@@ -245,6 +245,9 @@ const SpeechRecognition =
 const recognition = new SpeechRecognition();
 recognition.continuous = true;
 
+var synth = window.speechSynthesis;
+const speech = new SpeechSynthesisUtterance();
+
 recognition.onstart = function () {
   console.log("voice recognition activated");
 };
@@ -295,6 +298,9 @@ recognition.onresult = function (event) {
   if (transcript.includes("close this")) {
     readOut("closing the tab sir");
     document.querySelector(".commands").style.display = "none";
+    if(window.innerWidth >= 401 ){
+      window.resizeTo(250,250)
+    }
     setup.style.display = "none";
   }
 
@@ -313,8 +319,7 @@ recognition.onresult = function (event) {
   
   // weather report
   if (
-    transcript.includes("the weather") ||
-    transcript.includes("temperature")
+    transcript.includes("what's the temperature")
   ) {
     readOut(weatherStatement);
   }
@@ -477,6 +482,15 @@ recognition.onresult = function (event) {
     windowsB.push(a)
   }
 
+  // stop speech
+  if (transcript.includes("stop")) {
+    synth.cancel()
+    console.log("✌");
+
+  }
+  
+
+
   // close all opened tabs
   if (transcript.includes("close all tabs")) {
     readOut("closing all tabs sir")
@@ -506,9 +520,18 @@ recognition.onend = function () {
 
 
 function readOut(message) {
-const speech = new SpeechSynthesisUtterance();
   speech.text = message;
   speech.volume = 1;
+  window.speechSynthesis.speak(speech);
+  console.log("Speaking out");
+  // createMsg("jmsg", message);
+}
+
+
+function readOutNews(message) {
+  speech.text = message;
+  speech.volume = 1;
+  speech.rate = 1.2;
   window.speechSynthesis.speak(speech);
   console.log("Speaking out");
   // createMsg("jmsg", message);
@@ -528,6 +551,8 @@ smallJarvis.addEventListener("click", () => {
 document.querySelector("#jarvis_start").addEventListener("click", () => {
   recognition.start()
 })
+
+
 
 
 
