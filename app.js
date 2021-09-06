@@ -422,11 +422,8 @@ recognition.onresult = function (event) {
   if (transcript.includes("play")) {
     let playStr = transcript.split("");
     playStr.splice(0, 5);
-    console.log(playStr);
     let videoName = playStr.join("");
-    console.log(videoName);
     playStr = playStr.join("").split(" ").join("+");
-    console.log(playStr);
     readOut(`searching youtube for ${videoName}`);
     let a = window.open(`https://www.youtube.com/search?q=${playStr}`
     );

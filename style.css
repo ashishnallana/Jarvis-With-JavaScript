@@ -127,6 +127,7 @@ input {
 
 .clock {
   width: 150px;
+  letter-spacing: 2px;
 }
 
 .internet {
