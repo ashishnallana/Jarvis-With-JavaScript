@@ -63,7 +63,7 @@ window.onload = () => {
   turn_on.addEventListener("ended", () => {
     setTimeout(() => {
       // autoJarvis();
-      // readOut("Ready to go sir");
+      readOut("Ready to go sir");
       if (localStorage.getItem("jarvis_setup") === null) {
         readOut(
           "Sir, kindly fill out the form on your screen so that you could access most of my features and if you want to see my commands see a warning in the console"
@@ -505,6 +505,7 @@ recognition.onend = function () {
     }, 500);
   } else if (stopingR === true) {
     recognition.stop();
+    document.querySelector("#stop_jarvis_btn").style.display = "none"
   }
 };
 
