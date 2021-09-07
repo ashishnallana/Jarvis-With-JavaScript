@@ -63,7 +63,7 @@ window.onload = () => {
   turn_on.addEventListener("ended", () => {
     setTimeout(() => {
       // autoJarvis();
-      readOut("Ready to go sir");
+      // readOut("Ready to go sir");
       if (localStorage.getItem("jarvis_setup") === null) {
         readOut(
           "Sir, kindly fill out the form on your screen so that you could access most of my features and if you want to see my commands see a warning in the console"
@@ -160,6 +160,12 @@ document.querySelector("#start_jarvis_btn").addEventListener("click", () => {
   recognition.start();
 })
 
+
+document.querySelector("#stop_jarvis_btn").addEventListener("click", () => {
+  stopingR = true;
+  recognition.stop();
+})
+
 // show waether
 function weather(location) {
   const weatherCont = document.querySelector(".temp").querySelectorAll("*");
@@ -250,6 +256,7 @@ const speech = new SpeechSynthesisUtterance();
 
 recognition.onstart = function () {
   console.log("voice recognition activated");
+  document.querySelector("#stop_jarvis_btn").style.display = "flex"
 };
 
 // arr of window
@@ -435,11 +442,6 @@ recognition.onresult = function (event) {
     windowsB.push(a)
   }
 
-  /*
-  * When window.open is called from a handler that was triggered though a user action (e.g. onclick event), it will behave similar as <a target="_blank">, which by default opens in a new tab. However if window.open is called elsewhere, Chrome ignores other arguments and always opens a new window with a non-editable address bar.
-  * This looks like some kind of security measure, although the rationale behind it is not completely clear.
-  */
-
 
   // instagram
   if (transcript.includes("open instagram")) {
@@ -482,15 +484,6 @@ recognition.onresult = function (event) {
     windowsB.push(a)
   }
 
-  // stop speech
-  if (transcript.includes("stop")) {
-    synth.cancel()
-    console.log("✌");
-
-  }
-  
-
-
   // close all opened tabs
   if (transcript.includes("close all tabs")) {
     readOut("closing all tabs sir")
@@ -528,15 +521,6 @@ function readOut(message) {
 }
 
 
-function readOutNews(message) {
-  speech.text = message;
-  speech.volume = 1;
-  speech.rate = 1.2;
-  window.speechSynthesis.speak(speech);
-  console.log("Speaking out");
-  // createMsg("jmsg", message);
-}
-
 
 // small jarvis
 const smallJarvis = document.querySelector("#small_jarvis")
@@ -551,8 +535,4 @@ smallJarvis.addEventListener("click", () => {
 document.querySelector("#jarvis_start").addEventListener("click", () => {
   recognition.start()
 })
-
-
-
-
 

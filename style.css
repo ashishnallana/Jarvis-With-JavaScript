@@ -216,6 +216,29 @@ input {
   height: 300px;
 }
 
+#stop_jarvis_btn {
+  border: none;
+  outline: none;
+  position: fixed;
+  left: 400px;
+  transform: translateX(0);
+  top: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  display: none;
+}
+
+#stop_jarvis_btn p {
+  font-size: 30px;
+}
+
+#stop_jarvis_btn img {
+  height: 300px;
+  filter: blur(5px);
+}
+
 .small_jarvis {
   position: absolute;
   top: calc(100vh - 370px);
